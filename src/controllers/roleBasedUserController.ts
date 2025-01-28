@@ -213,6 +213,14 @@ export const putUserDetails = async (req: Request, res: Response): Promise<void>
             return;
         }
 
+        //update
+        if (email) {
+            if (decoded.role !== 'superadmin' && decoded.role !== 'admin') {
+                res.status(403).json({ message: 'Only admins/superadmins can update email' });
+                return;
+            }
+        }
+
         // Update user data
         if (name) user.name = name;
         if (email) user.email = email;
