@@ -12,6 +12,13 @@ const userRegister = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
+    //update
+    // Role validation (only allow valid roles)
+    if (role && !['user', 'admin', 'hr', 'superadmin'].includes(role)) {
+      res.status(400).json({ message: 'Invalid role' });
+      return;
+    }
+
     // Check if the user already exists (by email)
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {

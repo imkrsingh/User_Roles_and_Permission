@@ -6,9 +6,23 @@ interface IUser extends Document {
     email: string;
     password: string;
     role: string;
+    permissions: string[];
     createdAt: Date;
     updatedAt: Date;
 }
+
+//// Define permissions for each role
+const rolePermissions: { [key: string]: string[] } = {
+    superadmin: ["create_record", "read_record", "update_record", "delete_record"], // superadmin has full access
+    admin: ["create_record", "read_record", "update_record", "delete_record"], // admin has full access
+    hr: ["create_record", "read_record", "update_record"], // hr can create, read, and update
+    user: ["create_record", "read_record"], // user can create and read
+};
+
+// Function to assign permissions based on role
+const assignPermissions = (role: string): string[] => {
+    return rolePermissions[role] || [];
+};
 
 const userSchema = new Schema<IUser>(
     {
@@ -44,6 +58,14 @@ const userSchema = new Schema<IUser>(
             enum: ['user', 'admin', 'hr', 'superadmin'],
             default: 'user',
             trim: true,
+            required: true,
+        },
+        //Assign permissions 
+        permissions: {
+            type: [String],
+            default: function() {
+                return assignPermissions(this.role); // Assign permissions based on the role
+            },
         },
     },
     { timestamps: true }
