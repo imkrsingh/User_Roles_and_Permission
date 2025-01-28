@@ -103,3 +103,81 @@ http://localhost:8000/api/users/getall-user-details
         }
     ]
 }
+
+
+///////// forgot and reset password using token based
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+7.//////////////////// forgot-password /////////////////////
+//POST
+http://localhost:8000/api/auth/forgot-password
+
+{
+  "email": "Alex@123.com" {available data in database}
+}
+
+||||||||||||||||||||||||output||||||||||||||||||||||||
+
+{
+    "message": "Password reset link sent successfully" {token send in register email id}
+}
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+8.//////////////////// reset-password /////////////////////
+//POST
+http://localhost:8000/api/auth/reset-password/<Token>
+
+//Body
+
+{
+    "password": "Manish@12345"
+}
+
+
+||||||||||||||||||||||||output||||||||||||||||||||||||
+
+{
+    "message": "Password reset successful"
+}
+
+
+___________________________________________________________________________________________________________________
+///////// forgot and reset password using otp based
+9.//////////////////// forgot-password /////////////////////
+//POST 
+
+http://localhost:8000/api/auth//forgot-password-otp
+
+//Body
+
+{
+    "email": "ayushshekhar0001@gmail.com"
+}
+
+||||||||||||||||||||||||output||||||||||||||||||||||||
+
+{
+    "message": "OTP sent to your email"
+}
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+10.//////////////////// reset-password /////////////////////
+//POST
+
+http://localhost:8000/api/auth/reset-password-otp
+
+//Body
+
+{
+    "email": "ayushshekhar0001@gmail.com",
+    "otp": "596802", // write valid otp
+    "password": "Manish@123"
+}
+
+||||||||||||||||||||||||output||||||||||||||||||||||||
+
+{
+    "message": "Password reset successfully"
+}
+
