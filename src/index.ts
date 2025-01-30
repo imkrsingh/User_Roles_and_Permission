@@ -14,12 +14,12 @@ app.use(express.json());
 // Middleware to parse JSON requests
 app.use(express.json());
 
-// // Use the cors middleware
-// app.use(cors({
-//   origin: 'http://localhost:3000/', //front-end URL
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-//   allowedHeaders: ['Content-Type', 'Authorization'] // Allowed headers
-// }));
+// Use the cors middleware
+app.use(cors({
+  origin: 'http://localhost:3000', //front-end URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'] // Allowed headers
+}));
 
 // Use the user routes
 app.use('/api/users', userRoutes);
